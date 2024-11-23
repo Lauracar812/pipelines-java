@@ -11,14 +11,26 @@ pool:
 
 steps:
 - task: Maven@3
+  displayName: 'Ejecutar Maven con app/pom.xml'
   inputs:
-    mavenPomFile: 'pom.xml'
-    mavenOptions: '-Xmx3072m'
-    javaHomeOption: 'JDKVersion'
-    jdkVersionOption: '1.11'
-    jdkArchitectureOption: 'x64'
-    publishJUnitResults: true
-    testResultsFiles: '**/surefire-reports/TEST-*.xml'
-    goals: 'package'
+    mavenPomFile: 'app/pom.xml'
+    codeCoverageToolOption: 'Cobertura'
+  
     
-    
+- task: CopyFiles@2
+  displayName: 'Copy Files to: $(Build.ArtifactStagingDirectory)'  # Nombre descriptivo con destino
+  inputs:
+    SourceFolder: '$(Build.SourcesDirectory)'         # Carpeta de origen
+    Contents: '**/*.jar'                              # Archivos a copiar (todos los .jar)
+    TargetFolder: '$(Build.ArtifactStagingDirectory)' # Carpeta de destino
+    CleanTargetFolder: true                           # Limpia la carpeta destino antes de copiar
+    preserveTimestamp: true                           # Preserva las marcas de tiempo de los archivos
+    condition: succeededOrFailed() 
+  
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Build Artifacts: drop'  # Nombre visible con el nombre del artefacto
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'  # Ruta donde están los artefactos
+    ArtifactName: 'drop'                               # Nombre del artefacto
+    PublishLocation: 'Container'                       # Lugar donde se publican (contenedor)
+    condition: succeededOrFailed() 
