@@ -15,6 +15,9 @@ steps:
   inputs:
     mavenPomFile: 'pom.xml'
     codeCoverageToolOption: 'Cobertura'
+    javaHomeOption: 'JDKVersion'
+    jdkVersionOption: '1.8'  # Especificamos que se use JDK 8
+    options: '-X'  # Opcional, habilita el debug de Maven
   
     
 - task: CopyFiles@2
