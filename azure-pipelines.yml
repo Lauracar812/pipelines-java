@@ -11,9 +11,9 @@ pool:
 
 steps:
 - task: Maven@3
-  displayName: 'Ejecutar Maven con app/pom.xml'
+  displayName: 'Ejecutar Maven con pom.xml'
   inputs:
-    mavenPomFile: 'app/pom.xml'
+    mavenPomFile: 'pom.xml'
     codeCoverageToolOption: 'Cobertura'
   
     
