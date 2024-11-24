@@ -11,7 +11,7 @@ pool:
 
 steps:
 # Paso 1: Ejecutar Maven
-- task: Maven@3
+- task: Maven@4
   displayName: 'Ejecutar Maven con pom.xml'
   inputs:
     mavenPomFile: 'pom.xml'
