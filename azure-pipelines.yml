@@ -21,7 +21,7 @@ steps:
   
     
 - task: CopyFiles@2
-  displayName: 'Copy Files to: $(Build.ArtifactStagingDirectory)'  # Nombre descriptivo con destino
+  displayName: 'Copiar archivos a: $(Build.ArtifactStagingDirectory)'  # Nombre descriptivo con destino
   inputs:
     SourceFolder: '$(Build.SourcesDirectory)'         # Carpeta de origen
     Contents: '**/*.jar'                              # Archivos a copiar (todos los .jar)
@@ -31,7 +31,7 @@ steps:
     condition: succeededOrFailed() 
   
 - task: PublishBuildArtifacts@1
-  displayName: 'Publish Build Artifacts: drop'  # Nombre visible con el nombre del artefacto
+  displayName: 'Publicar artefactos de construcción: drop'  # Nombre visible con el nombre del artefacto
   inputs:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'  # Ruta donde están los artefactos
     ArtifactName: 'drop'                               # Nombre del artefacto
