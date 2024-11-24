@@ -4,12 +4,13 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/java
 
 trigger:
-- main
+- main # Cambia "main" si el nombre de tu rama principal es diferente
 
 pool:
-  vmImage: ubuntu-latest
+  vmImage: 'ubuntu-latest' # Usar máquina virtual basada en Ubuntu
 
 steps:
+# Paso 1: Ejecutar Maven
 - task: Maven@3
   displayName: 'Ejecutar Maven con pom.xml'
   inputs:
@@ -18,5 +19,22 @@ steps:
     javaHomeOption: 'JDKVersion'
     jdkVersionOption: '1.8'  # Especificamos que se use JDK 8
     options: '-X'  # Opcional, habilita el debug de Maven
-  
-    
+
+# Paso 2: Copiar Archivos
+- task: CopyFiles@2
+  displayName: 'Copiar archivos a: $(Build.ArtifactStagingDirectory)'  # Nombre descriptivo con destino
+  inputs:
+    SourceFolder: '$(Build.SourcesDirectory)'         # Carpeta de origen
+    Contents: '**/*.jar'                              # Archivos a copiar (todos los .jar)
+    TargetFolder: '$(Build.ArtifactStagingDirectory)' # Carpeta de destino
+    CleanTargetFolder: true                           # Limpia la carpeta destino antes de copiar
+    preserveTimestamp: true                           # Preserva las marcas de tiempo de los archivos
+  condition: succeededOrFailed()                     # Ejecutar aunque falle o tenga éxito
+
+# Paso 3: Publicar Artefactos
+- task: PublishBuildArtifacts@1
+  displayName: 'Publicar artefactos de construcción: drop'  # Nombre visible con el nombre del artefacto
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'  # Ruta donde están los artefactos
+    ArtifactName: 'drop'                               # Nombre del artefacto
+    PublishLocation: 'Container'                       # Lugar donde se publican (contenedor)
