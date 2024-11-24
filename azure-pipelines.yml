@@ -20,20 +20,3 @@ steps:
     options: '-X'  # Opcional, habilita el debug de Maven
   
     
-- task: CopyFiles@2
-  displayName: 'Copiar archivos a: $(Build.ArtifactStagingDirectory)'  # Nombre descriptivo con destino
-  inputs:
-    SourceFolder: '$(Build.SourcesDirectory)'         # Carpeta de origen
-    Contents: '**/*.jar'                              # Archivos a copiar (todos los .jar)
-    TargetFolder: '$(Build.ArtifactStagingDirectory)' # Carpeta de destino
-    CleanTargetFolder: true                           # Limpia la carpeta destino antes de copiar
-    preserveTimestamp: true                           # Preserva las marcas de tiempo de los archivos
-    condition: succeededOrFailed() 
-  
-- task: PublishBuildArtifacts@1
-  displayName: 'Publicar artefactos de construcción: drop'  # Nombre visible con el nombre del artefacto
-  inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)'  # Ruta donde están los artefactos
-    ArtifactName: 'drop'                               # Nombre del artefacto
-    PublishLocation: 'Container'                       # Lugar donde se publican (contenedor)
-    condition: succeededOrFailed() 
