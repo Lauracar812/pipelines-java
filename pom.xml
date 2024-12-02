@@ -1,19 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
+  
+  <!-- Información del proyecto -->
   <groupId>helloworld</groupId>
   <artifactId>helloworld</artifactId>
-  <packaging>war</packaging>
+  <packaging>jar</packaging> <!-- Cambié el empaquetado a JAR ya que es un proyecto de Selenium -->
   <version>1.0-SNAPSHOT</version>
   <name>Hello world sample web app</name>
   <url>http://maven.apache.org</url>
 
   <dependencies>
+    <!-- Dependencia de JUnit para pruebas -->
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>4.11</version>
       <scope>test</scope>
+    </dependency>
+
+    <!-- Dependencias de Selenium WebDriver -->
+    <dependency>
+      <groupId>org.seleniumhq.selenium</groupId>
+      <artifactId>selenium-java</artifactId>
+      <version>4.0.0</version> <!-- Asegúrate de usar la versión adecuada -->
+    </dependency>
+
+    <!-- Dependencia de ChromeDriver -->
+    <dependency>
+      <groupId>org.seleniumhq.selenium</groupId>
+      <artifactId>selenium-chrome-driver</artifactId>
+      <version>4.0.0</version> <!-- Asegúrate de usar la misma versión de Selenium -->
     </dependency>
   </dependencies>
 
